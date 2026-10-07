@@ -1,0 +1,113 @@
+name: CI
+
+on:
+  push:
+  pull_request:
+  release:
+    types: [published]
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    env:
+      CGO_ENABLED: 0
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v7
+        with:
+          submodules: recursive
+
+      - name: Set up Go
+        uses: actions/setup-go@v7
+        with:
+          go-version-file: go.mod
+          cache-dependency-path: go.sum
+
+      - name: Test
+        run: make test
+
+  build:
+    name: Build (${{ matrix.target }})
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - target: darwin_amd64
+            goos: darwin
+            goarch: amd64
+          - target: darwin_arm64
+            goos: darwin
+            goarch: arm64
+          - target: linux_386
+            goos: linux
+            goarch: "386"
+          - target: linux_amd64
+            goos: linux
+            goarch: amd64
+          - target: linux_arm64
+            goos: linux
+            goarch: arm64
+    env:
+      CGO_ENABLED: 0
+      GOOS: ${{ matrix.goos }}
+      GOARCH: ${{ matrix.goarch }}
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v7
+
+      - name: Set up Go
+        uses: actions/setup-go@v7
+        with:
+          go-version-file: go.mod
+          cache-dependency-path: go.sum
+
+      - name: Build
+        run: make build
+
+      - name: Prepare binary
+        run: |
+          mkdir -p dist
+          cp bin/protoview dist/protoview_${{ matrix.target }}
+
+      - name: Upload binary
+        uses: actions/upload-artifact@v7
+        with:
+          name: protoview_${{ matrix.target }}
+          path: dist/protoview_${{ matrix.target }}
+          if-no-files-found: error
+
+  release:
+    if: github.event_name == 'release'
+    needs: [test, build]
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    permissions:
+      contents: write
+
+    steps:
+      - name: Download binaries
+        uses: actions/download-artifact@v8
+        with:
+          pattern: protoview_*
+          path: dist
+          merge-multiple: true
+
+      - name: Generate checksums
+        working-directory: dist
+        run: sha256sum protoview_* > SHA256SUMS
+
+      - name: Publish binaries
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: >-
+          gh release upload "${{ github.event.release.tag_name }}"
+          dist/protoview_* dist/SHA256SUMS
+          --repo "${{ github.repository }}"

@@ -1,0 +1,45 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1040" height="570" viewBox="0 0 1040 570" role="img" aria-labelledby="title desc">
+  <title id="title">protoview displaying an OTLP metrics payload</title>
+  <desc id="desc">A terminal window with a searchable tree of decoded protobuf payloads.</desc>
+  <style>
+    .text { font: 15px 'SFMono-Regular', Consolas, 'Liberation Mono', monospace; fill: #cdd6f4; white-space: pre; }
+    .bold { font-weight: 700; }
+    .dim { fill: #8087a2; }
+    .message { fill: #74c7ec; }
+    .number { fill: #89dceb; }
+    .string { fill: #a6e3a1; }
+  </style>
+  <rect width="1040" height="570" rx="12" fill="#11111b"/>
+  <path d="M12 0h1016a12 12 0 0 1 12 12v28H0V12A12 12 0 0 1 12 0z" fill="#313244"/>
+  <circle cx="22" cy="20" r="6" fill="#f38ba8"/>
+  <circle cx="42" cy="20" r="6" fill="#f9e2af"/>
+  <circle cx="62" cy="20" r="6" fill="#a6e3a1"/>
+  <text x="520" y="25" text-anchor="middle" class="text dim">protoview — metrics.pb.zst</text>
+
+  <rect x="16" y="50" width="1008" height="28" fill="#5f5faf"/>
+  <text x="28" y="70" class="text bold" fill="#ffffd7">protoview  metrics.v1.MetricsData  70 payloads</text>
+  <text x="20" y="99" class="text dim">examples/otlp/testdata/metrics.pb.zst · compression: zstd · framing: 32-bit big-endian · 70 payload(s)</text>
+
+  <text x="20" y="126" class="text">▾ payload  1 ·  1285 bytes<tspan class="dim"> = </tspan><tspan class="message">metrics.v1.MetricsData</tspan></text>
+  <text x="20" y="150" class="text">  ▾ resource_metrics · <tspan class="message">metrics.v1.ResourceMetrics</tspan><tspan class="dim"> = </tspan><tspan class="message">1 items</tspan></text>
+  <text x="20" y="174" class="text">    ▾ [0]<tspan class="dim"> = </tspan><tspan class="message">metrics.v1.ResourceMetrics</tspan></text>
+
+  <rect x="16" y="181" width="1008" height="25" fill="#303030"/>
+  <text x="20" y="199" class="text bold">      ▾ resource      · <tspan class="message">resource.v1.Resource</tspan></text>
+  <text x="20" y="223" class="text">          attributes               · <tspan class="message">common.v1.KeyValue</tspan><tspan class="dim"> = &lt;unset&gt;</tspan></text>
+  <text x="20" y="247" class="text">          dropped_attributes_count · <tspan class="number">uint32</tspan><tspan class="dim">              = &lt;unset&gt;</tspan></text>
+  <text x="20" y="271" class="text">          entity_refs              · <tspan class="message">common.v1.EntityRef</tspan><tspan class="dim"> = &lt;unset&gt;</tspan></text>
+  <text x="20" y="295" class="text">      ▸ scope_metrics · <tspan class="message">metrics.v1.ScopeMetrics</tspan><tspan class="dim"> = </tspan><tspan class="message">1 items</tspan></text>
+  <text x="20" y="319" class="text">        schema_url    · <tspan class="string">string</tspan><tspan class="dim">                  = &lt;unset&gt;</tspan></text>
+
+  <text x="20" y="350" class="text">▸ payload  2 ·  1938 bytes<tspan class="dim"> = </tspan><tspan class="message">metrics.v1.MetricsData</tspan></text>
+  <text x="20" y="374" class="text">▸ payload  3 ·   299 bytes<tspan class="dim"> = </tspan><tspan class="message">metrics.v1.MetricsData</tspan></text>
+  <text x="20" y="398" class="text">▸ payload  4 · 35410 bytes<tspan class="dim"> = </tspan><tspan class="message">metrics.v1.MetricsData</tspan></text>
+  <text x="20" y="422" class="text">▸ payload  5 ·  6299 bytes<tspan class="dim"> = </tspan><tspan class="message">metrics.v1.MetricsData</tspan></text>
+  <text x="20" y="446" class="text">▸ payload  6 ·  1025 bytes<tspan class="dim"> = </tspan><tspan class="message">metrics.v1.MetricsData</tspan></text>
+  <text x="20" y="470" class="text">▸ payload  7 ·  2587 bytes<tspan class="dim"> = </tspan><tspan class="message">metrics.v1.MetricsData</tspan></text>
+  <text x="20" y="494" class="text">▸ payload  8 ·   299 bytes<tspan class="dim"> = </tspan><tspan class="message">metrics.v1.MetricsData</tspan></text>
+
+  <line x1="16" x2="1024" y1="518" y2="518" stroke="#313244"/>
+  <text x="20" y="545" class="text dim">↑/↓ move  → expand  ← collapse  / search  n next  g/G ends  q quit</text>
+</svg>
